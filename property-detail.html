@@ -9,26 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="styles.css"/>
 <style>
-/* PAGE SPECIFIC STYLES */
-nav{position:fixed;top:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;background:rgba(247,244,239,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.04em;color:var(--ink);text-decoration:none;z-index:101}
-.nav-logo span{color:var(--gold)}
-.nav-links{display:flex;gap:36px;list-style:none}
-.nav-links a{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--ink)}
-.nav-cta{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);padding:10px 24px;text-decoration:none;transition:background .25s,color .25s}
-.nav-cta:hover{background:var(--ink);color:var(--cream)}
-.menu-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;background:none;border:1px solid var(--border);cursor:pointer;z-index:101;transition:border-color .3s}
-.menu-toggle:hover{border-color:var(--ink)}
-.menu-toggle span{display:block;width:20px;height:2px;background:var(--ink);margin:2px 0;transition:transform .3s,opacity .3s}
-.menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
-.menu-toggle.active span:nth-child(2){opacity:0}
-.menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
-.mobile-menu{position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--cream);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:32px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
-.mobile-menu.active{opacity:1;visibility:visible}
-.mobile-menu a{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--ink);text-decoration:none;transition:color .2s}
-.mobile-menu a:hover{color:var(--gold)}
-.mobile-menu .nav-cta{margin-top:20px;font-family:var(--sans);font-size:12px}
+/* PROPERTY DETAIL PAGE SPECIFIC STYLES */
 
 /* BREADCRUMB */
 .breadcrumb{padding:100px 60px 0;display:flex;align-items:center;gap:10px}
