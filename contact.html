@@ -97,35 +97,10 @@
 .faq-q{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:14px;color:var(--ink)}
 .faq-a{font-size:13px;color:var(--ink-muted);line-height:1.8;font-weight:300}
 
-/* FOOTER */
-footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px}
-.footer-logo{font-family:var(--serif);font-size:24px;font-weight:600;color:rgba(255,255,255,.8);text-decoration:none;display:block;margin-bottom:16px}
-.footer-logo span{color:var(--gold)}
-.footer-tagline{font-size:13px;color:rgba(255,255,255,.3);line-height:1.7;max-width:260px}
-.footer-social{display:flex;gap:12px;margin-top:24px}
-.footer-social a{width:40px;height:40px;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none}
-.footer-social a:hover{background:var(--gold);border-color:var(--gold)}
-.footer-social svg{width:18px;height:18px;fill:rgba(255,255,255,.5);transition:fill .3s}
-.footer-social a:hover svg{fill:var(--ink)}
-.footer-col-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
-.footer-col-links{list-style:none;display:flex;flex-direction:column;gap:12px}
-.footer-col-links a{font-size:13px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
-.footer-col-links a:hover{color:var(--gold-light)}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.07);padding-top:28px}
-.footer-copy{font-size:11px;color:rgba(255,255,255,.2)}
-.footer-legal{display:flex;gap:24px}
-.footer-legal a{font-size:11px;color:rgba(255,255,255,.2);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
-.footer-legal a:hover{color:rgba(255,255,255,.4)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
-.reveal.visible{opacity:1;transform:translateY(0)}
 .success-msg{display:none;background:rgba(111,207,151,.1);border:1px solid #6fcf97;padding:16px 20px;margin-top:16px;font-size:13px;color:#27AE60}
+
+/* CONTACT PAGE RESPONSIVE */
 @media(max-width:1024px){
-  nav{padding:20px 32px}
-  .nav-links{display:none}
-  .nav-cta{display:none}
-  .menu-toggle{display:flex}
   .ch-inner{padding:0 32px}
   .ch-title{font-size:clamp(36px,8vw,52px)}
   .contact-main{grid-template-columns:1fr}
@@ -136,18 +111,11 @@ footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
   .faq-section{padding:60px 32px}
   .faq-grid{grid-template-columns:1fr}
   .map-overlay-card{left:32px}
-  footer{padding:48px 32px 24px}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
-  .footer-bottom{flex-direction:column;gap:16px;text-align:center}
 }
 @media(max-width:768px){
   .ch-title{font-size:clamp(32px,7vw,44px)}
 }
 @media(max-width:480px){
-  nav{padding:14px 16px}
-  .nav-logo{font-size:18px}
-  .menu-toggle{width:40px;height:40px}
-  .mobile-menu a{font-size:24px}
   .contact-header{padding:70px 0 30px}
   .ch-inner{padding:0 16px}
   .ch-eyebrow{font-size:10px}
@@ -166,16 +134,6 @@ footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
   .faq-a{font-size:13px}
   .map-section{height:250px}
   .map-overlay-card{left:16px;right:16px;padding:16px}
-  footer{padding:32px 16px 16px}
-  .footer-grid{grid-template-columns:1fr;text-align:center;gap:24px}
-  .footer-logo{font-size:20px}
-  .footer-tagline{font-size:12px}
-  .footer-social{justify-content:center}
-  .footer-col-title{font-size:10px}
-  .footer-col-links a{font-size:12px}
-  .footer-bottom{padding-top:20px}
-  .footer-copy{font-size:10px}
-  .footer-legal a{font-size:10px}
 }
 </style>
 </head>
