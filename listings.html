@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Properties — Luxe Realty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#F7F4EF;--white:#FFFFFF;--ink:#141414;--ink-soft:#3A3A3A;--ink-muted:#888880;--gold:#B8964E;--gold-light:#D4AF72;--border:rgba(20,20,20,0.10);--serif:'Cormorant Garamond',serif;--sans:'DM Sans',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);overflow-x:hidden;cursor:none}
+.cursor{width:10px;height:10px;background:var(--ink);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .15s ease;transform:translate(-50%,-50%)}
+.cursor-ring{width:36px;height:36px;border:1px solid var(--ink);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:transform .4s cubic-bezier(.25,.46,.45,.94);transform:translate(-50%,-50%);opacity:.5}
+nav{position:fixed;top:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;background:rgba(247,244,239,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.04em;color:var(--ink);text-decoration:none}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:13px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);padding:10px 24px;text-decoration:none;transition:background .25s,color .25s}
+.nav-cta:hover{background:var(--ink);color:var(--cream)}
+
+/* PAGE HEADER */
+.page-header{padding:140px 60px 60px;background:var(--ink);position:relative;overflow:hidden}
+.page-header::after{content:'Properties';font-family:var(--serif);font-size:200px;font-weight:300;color:rgba(255,255,255,.03);position:absolute;right:-20px;bottom:-40px;white-space:nowrap;pointer-events:none;letter-spacing:-.02em}
+.ph-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px;display:block;opacity:0;animation:fadeUp .7s .1s forwards}
+.ph-title{font-family:var(--serif);font-size:clamp(44px,5vw,72px);font-weight:300;color:var(--white);line-height:1.1;opacity:0;animation:fadeUp .7s .25s forwards}
+.ph-title em{font-style:italic;color:var(--gold-light)}
+.ph-meta{display:flex;align-items:center;gap:32px;margin-top:32px;opacity:0;animation:fadeUp .7s .4s forwards}
+.ph-count{font-size:14px;color:rgba(255,255,255,.5)}
+.ph-count strong{color:var(--white);font-weight:500}
+.ph-divider{width:1px;height:20px;background:rgba(255,255,255,.15)}
+
+/* FILTER BAR */
+.filter-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 60px;position:sticky;top:73px;z-index:90}
+.filter-inner{display:flex;align-items:stretch;gap:0;overflow-x:auto}
+.filter-group{display:flex;flex-direction:column;justify-content:center;padding:18px 28px;border-right:1px solid var(--border);min-width:max-content}
+.filter-group:last-of-type{border-right:none}
+.filter-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px;font-weight:500}
+.filter-select{background:none;border:none;outline:none;font-family:var(--serif);font-size:16px;font-weight:300;color:var(--ink);cursor:pointer;appearance:none;-webkit-appearance:none;padding-right:16px}
+.filter-actions{margin-left:auto;display:flex;align-items:center;gap:12px;padding-left:28px}
+.filter-btn{padding:10px 24px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;font-family:var(--sans);transition:all .2s}
+.filter-btn.apply{background:var(--ink);color:var(--white);border:none}
+.filter-btn.apply:hover{background:var(--gold)}
+.filter-btn.clear{background:none;color:var(--ink-muted);border:1px solid var(--border)}
+.filter-btn.clear:hover{border-color:var(--ink);color:var(--ink)}
+
+/* SORT + RESULTS BAR */
+.results-bar{padding:24px 60px;display:flex;align-items:center;justify-content:space-between}
+.results-count{font-size:14px;color:var(--ink-muted)}
+.results-count strong{color:var(--ink);font-weight:500}
+.sort-wrap{display:flex;align-items:center;gap:12px}
+.sort-label{font-size:12px;color:var(--ink-muted)}
+.sort-select{background:none;border:1px solid var(--border);padding:8px 16px;font-family:var(--sans);font-size:12px;color:var(--ink);cursor:pointer;outline:none;-webkit-appearance:none}
+.view-toggle{display:flex;gap:4px;margin-left:16px}
+.vt-btn{width:36px;height:36px;border:1px solid var(--border);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink-muted);transition:all .2s}
+.vt-btn.active,.vt-btn:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+/* LISTINGS GRID */
+.listings-body{padding:0 60px 80px}
+.listings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.listings-grid.list-view{grid-template-columns:1fr}
+.listing-card{background:var(--white);overflow:hidden;transition:transform .4s cubic-bezier(.25,.46,.45,.94);cursor:none;text-decoration:none;color:inherit;display:block}
+.listing-card:hover{transform:translateY(-6px)}
+.listing-card:hover .listing-img-placeholder{transform:scale(1.04)}
+.listing-img-wrap{overflow:hidden;aspect-ratio:4/3;position:relative}
+.listing-img-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#E5DDD4,#CFC7BC);display:flex;align-items:center;justify-content:center;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+.listing-img-placeholder.g2{background:linear-gradient(135deg,#D9E0E5,#BFC9D0)}
+.listing-img-placeholder.g3{background:linear-gradient(135deg,#E5E0D9,#D0C9BF)}
+.listing-img-placeholder.g4{background:linear-gradient(135deg,#E0D9E5,#C9BFD0)}
+.listing-img-placeholder.g5{background:linear-gradient(135deg,#D9E5E0,#BFD0C9)}
+.listing-img-placeholder.g6{background:linear-gradient(135deg,#E5E5D9,#D0D0BF)}
+.listing-img-placeholder.g7{background:linear-gradient(135deg,#E5D9D9,#D0BFBF)}
+.listing-img-placeholder.g8{background:linear-gradient(135deg,#D9E5E5,#BFCFCF)}
+.listing-img-placeholder.g9{background:linear-gradient(135deg,#E2E2D8,#CCCCC0)}
+.listing-img-icon{font-family:var(--serif);font-style:italic;font-size:14px;color:rgba(20,20,20,.25);letter-spacing:.05em}
+.listing-tag{position:absolute;top:16px;left:16px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;font-weight:500}
+.listing-tag.sale{background:var(--white);color:var(--ink)}
+.listing-tag.new-l{background:var(--gold);color:var(--white)}
+.listing-tag.sold{background:var(--ink);color:var(--white)}
+.listing-tag.pend{background:#6a9abd;color:var(--white)}
+.listing-body{padding:24px 28px 28px}
+.listing-city{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:500}
+.listing-title{font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.2;margin-bottom:8px;color:var(--ink)}
+.listing-address{font-size:13px;color:var(--ink-muted);margin-bottom:20px}
+.listing-divider{height:1px;background:var(--border);margin-bottom:20px}
+.listing-meta{display:flex;gap:20px}
+.listing-meta-item{font-size:12px;color:var(--ink-muted)}
+.listing-meta-item strong{color:var(--ink);font-weight:500;display:block;font-size:13px}
+.listing-footer{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.listing-price{font-family:var(--serif);font-size:26px;font-weight:300}
+.listing-btn-sm{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);border:1px solid var(--border);padding:8px 18px;cursor:pointer;background:none;transition:all .2s;font-family:var(--sans)}
+.listing-btn-sm:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+/* LIST VIEW card override */
+.listings-grid.list-view .listing-card{display:grid;grid-template-columns:320px 1fr}
+.listings-grid.list-view .listing-img-wrap{aspect-ratio:auto;height:100%;min-height:220px}
+.listings-grid.list-view .listing-card:hover{transform:none;box-shadow:0 4px 32px rgba(0,0,0,.08)}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:center;gap:8px;padding:60px 60px 80px}
+.pag-btn{width:44px;height:44px;border:1px solid var(--border);background:none;cursor:pointer;font-family:var(--sans);font-size:13px;color:var(--ink-muted);transition:all .2s;display:flex;align-items:center;justify-content:center}
+.pag-btn:hover,.pag-btn.active{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.pag-ellipsis{font-size:13px;color:var(--ink-muted);padding:0 8px}
+
+/* FOOTER */
+footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:48px}
+.footer-logo{font-family:var(--serif);font-size:24px;font-weight:600;color:rgba(255,255,255,.8);letter-spacing:.04em;text-decoration:none;display:block;margin-bottom:16px}
+.footer-logo span{color:var(--gold)}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.3);line-height:1.7;font-weight:300;max-width:260px}
+.footer-col-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:500}
+.footer-col-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col-links a{font-size:13px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
+.footer-col-links a:hover{color:var(--gold-light)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.07);padding-top:28px}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.2)}
+.footer-legal{display:flex;gap:24px}
+.footer-legal a{font-size:11px;color:rgba(255,255,255,.2);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.footer-legal a:hover{color:rgba(255,255,255,.4)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:1024px){
+  nav{padding:20px 32px}
+  .nav-links{display:none}
+  .page-header{padding:110px 32px 48px}
+  .filter-bar{padding:0 32px;top:69px}
+  .results-bar,.listings-body{padding-left:32px;padding-right:32px}
+  .listings-grid{grid-template-columns:1fr 1fr}
+  .listings-grid.list-view{grid-template-columns:1fr}
+  .listings-grid.list-view .listing-card{grid-template-columns:1fr}
+  .pagination{padding:40px 32px 60px}
+  footer{padding:48px 32px 24px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Luxe<span>.</span>Realty</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="listings.html" class="active">Properties</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get Started</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <span class="ph-eyebrow">Residential Properties</span>
+  <h1 class="ph-title">Find Your <em>Ideal</em> Home</h1>
+  <div class="ph-meta">
+    <span class="ph-count"><strong>48</strong> properties available</span>
+    <div class="ph-divider"></div>
+    <span class="ph-count">Across <strong>5</strong> major US markets</span>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <div class="filter-group">
+      <span class="filter-label">Market</span>
+      <select class="filter-select" onchange="filterListings()">
+        <option value="all">All Markets</option>
+        <option value="ny">New York, NY</option>
+        <option value="miami">Miami, FL</option>
+        <option value="la">Los Angeles, CA</option>
+        <option value="tx">Texas</option>
+        <option value="chi">Chicago, IL</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Type</span>
+      <select class="filter-select">
+        <option>Any Type</option>
+        <option>Single Family</option>
+        <option>Condominium</option>
+        <option>Townhouse</option>
+        <option>Penthouse</option>
+        <option>Multi-Family</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Min Price</span>
+      <select class="filter-select">
+        <option>No Min</option>
+        <option>$500K</option>
+        <option>$1M</option>
+        <option>$2M</option>
+        <option>$5M</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Max Price</span>
+      <select class="filter-select">
+        <option>No Max</option>
+        <option>$1M</option>
+        <option>$2.5M</option>
+        <option>$5M</option>
+        <option>$10M+</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Beds</span>
+      <select class="filter-select">
+        <option>Any</option>
+        <option>1+</option>
+        <option>2+</option>
+        <option>3+</option>
+        <option>4+</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Baths</span>
+      <select class="filter-select">
+        <option>Any</option>
+        <option>2+</option>
+        <option>3+</option>
+        <option>4+</option>
+      </select>
+    </div>
+    <div class="filter-actions">
+      <button class="filter-btn clear" onclick="resetFilters()">Clear</button>
+      <button class="filter-btn apply">Apply Filters</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS BAR -->
+<div class="results-bar">
+  <span class="results-count">Showing <strong id="resultCount">9</strong> of <strong>48</strong> properties</span>
+  <div class="sort-wrap">
+    <span class="sort-label">Sort by:</span>
+    <select class="sort-select">
+      <option>Newest First</option>
+      <option>Price: High to Low</option>
+      <option>Price: Low to High</option>
+      <option>Sq Ft: Largest</option>
+    </select>
+    <div class="view-toggle">
+      <button class="vt-btn active" id="gridBtn" onclick="setView('grid')" title="Grid view">⊞</button>
+      <button class="vt-btn" id="listBtn" onclick="setView('list')" title="List view">☰</button>
+    </div>
+  </div>
+</div>
+
+<!-- LISTINGS -->
+<div class="listings-body">
+  <div class="listings-grid" id="listingsGrid">
+
+    <a href="property-detail.html" class="listing-card reveal" data-market="ny">
+      <div class="listing-img-wrap"><div class="listing-img-placeholder"><span class="listing-img-icon">Property Photo</span></div><span class="listing-tag new-l">New</span></div>
+      <div class="listing-body"><div class="listing-city">New York, NY</div><h3 class="listing-title">Tribeca Loft Residence</h3><p class="listing-address">145 Hudson St, New York, NY 10013</p><div class="listing-divider"></div><div class="listing-meta"><div class="listing-meta-item"><strong>4</strong>Beds</div><div class="listing-meta-item"><strong>3</strong>Baths</div><div class="listing-meta-item"><strong>3,200</strong>Sq Ft</div></div><div class="listing-footer"><span class="listing-price">$4,750,000</span><button class="listing-btn-sm">View Details</button></div></div>
+    </a>
+
+    <a href="property-detail.html" class="listing-card reveal" data-market="miami">
+      <div class="listing-img-wrap"><div class="listing-img-placeholder g2"><span class="listing-img-icon">Property Photo</span></div><span class="listing-tag sale">For Sale</span></div>
+      <div class="listing-body"><div class="listing-city">Miami, FL</div><h3 class="listing-title">Coconut Grove Waterfront</h3><p class="listing-address">3180 S Bayshore Dr, Miami, FL 33133</p><div class="listing-divider"></div><div class="listing-meta"><div class="listing-meta-item"><strong>5</strong>Beds</div><div class="listing-meta-item"><strong>4</strong>Baths</div><div class="listing-meta-item"><strong>5,100</strong>Sq Ft</div></div><div class="listing-footer"><span class="listing-price">$6,200,000</span><button class="listing-btn-sm">View Details</button></div></div>
+    </a>
+
+    <a href="property-detail.html" class="listing-card reveal" data-market="la">
+      <div class="listing-img-wrap"><div class="listing-img-placeholder g3"><span class="listing-img-icon">Property Photo</span></div><span class="listing-tag sale">For Sale</span></div>
+      <div class="listing-body"><div class="listing-city">Los Angeles, CA</div><h3 class="listing-title">Hollywood Hills Modern</h3><p class="listing-address">8420 Sunset Blvd, Los Angeles, CA 90069</p><div class="listing-divider"></div><div class="listing-meta"><div class="listing-meta-item"><strong>3</strong>Beds</div><div class="listing-meta-item"><strong>3</strong>Baths</div><div class="listing-meta-item"><strong>2,800</strong>Sq Ft</div></div><div class="listing-footer"><span class="listing-price">$3,850,000</span><button class="listing-btn-sm">View Details</button></div></div>
+    </a>
+
+    <a href="property-detail.html" class="listing-card reveal" data-market="tx">
+      <div class="listing-img-wrap"><div class="listing-img-placeholder g4"><span class="listing-img-icon">Property Photo</span></div><span class="listing-tag new-l">New</span></div>
+      <div class="listing-body"><div class="listing-city">Austin, TX</div><h3 class="listing-title">Barton Hills Estate</h3><p class="listing-address">2201 Barton Creek Blvd, Austin, TX 78735</p><div class="listing-divider"></div><div class="listing-meta"><div class="listing-meta-item"><strong>4</strong>Beds</div><div class="listing-meta-item"><strong>4</strong>Baths</div><div class="listing-meta-item"><strong>4,400</strong>Sq Ft</div></div><div class="listing-footer"><span class="listing-price">$2,100,000</span><button class="listing-btn-sm">View Details</button></div></div>
+    </a>
+
+    <a href="property-detail.html" class="listing-card reveal" data-market="chi">
+      <div class="listing-img-wrap"><div class="listing-img-placeholder g5"><span class="listing-img-icon">Property Photo</span></div><span class="listing-tag sale">For Sale</span></div>
+      <div class="listing-body"><div class="listing-city">Chicago, IL</div><h3 class="listing-title">Lincoln Park Brownstone</h3><p class="listing-address">2320 N Clark St, Chicago, IL 60614</p><div class="listing-divider"></div><div class="listing-meta"><div class="listing-meta-item"><strong>3</strong>Beds</div><div class="listing-meta-item"><strong>2</strong>Baths</div><div class="listing-meta-item"><strong>2,600</strong>Sq Ft</div></div><div class="listing-footer"><span class="listing-price">$1,475,000</span><button class="listing-btn-sm">View Details</button></div></div>
+    </a>
+
+    <a href="property-detail.html" class="listing-card reveal" data-market="miami">
+      <div class="listing-img-wrap"><div class="listing-img-placeholder g6"><span class="listing-img-icon">Property Photo</span></div><span class="listing-tag sold">Sold</span></div>
+      <div class="listing-body"><div class="listing-city">Miami, FL</div><h3 class="listing-title">Brickell Sky Penthouse</h3><p class="listing-address">1000 Brickell Ave, Miami, FL 33131</p><div class="listing-divider"></div><div class="listing-meta"><div class="listing-meta-item"><strong>4</strong>Beds</div><div class="listing-meta-item"><strong>5</strong>Baths</div><div class="listing-meta-item"><strong>4,800</strong>Sq Ft</div></div><div class="listing-footer"><span class="listing-price">$8,900,000</span><button class="listing-btn-sm">View Details</button></div></div>
+    </a>
+
+    <a href="property-detail.html" class="listing-card reveal" data-market="ny">
+      <div class="listing-img-wrap"><div class="listing-img-placeholder g7"><span class="listing-img-icon">Property Photo</span></div><span class="listing-tag pend">Pending</span></div>
+      <div class="listing-body"><div class="listing-city">New York, NY</div><h3 class="listing-title">Upper West Side Classic</h3><p class="listing-address">315 W 75th St, New York, NY 10023</p><div class="listing-divider"></div><div class="listing-meta"><div class="listing-meta-item"><strong>3</strong>Beds</div><div class="listing-meta-item"><strong>2</strong>Baths</div><div class="listing-meta-item"><strong>1,950</strong>Sq Ft</div></div><div class="listing-footer"><span class="listing-price">$2,850,000</span><button class="listing-btn-sm">View Details</button></div></div>
+    </a>
+
+    <a href="property-detail.html" class="listing-card reveal" data-market="la">
+      <div class="listing-img-wrap"><div class="listing-img-placeholder g8"><span class="listing-img-icon">Property Photo</span></div><span class="listing-tag new-l">New</span></div>
+      <div class="listing-body"><div class="listing-city">Los Angeles, CA</div><h3 class="listing-title">Venice Beach Bungalow</h3><p class="listing-address">820 Abbot Kinney Blvd, Venice, CA 90291</p><div class="listing-divider"></div><div class="listing-meta"><div class="listing-meta-item"><strong>2</strong>Beds</div><div class="listing-meta-item"><strong>2</strong>Baths</div><div class="listing-meta-item"><strong>1,400</strong>Sq Ft</div></div><div class="listing-footer"><span class="listing-price">$1,980,000</span><button class="listing-btn-sm">View Details</button></div></div>
+    </a>
+
+    <a href="property-detail.html" class="listing-card reveal" data-market="tx">
+      <div class="listing-img-wrap"><div class="listing-img-placeholder g9"><span class="listing-img-icon">Property Photo</span></div><span class="listing-tag sale">For Sale</span></div>
+      <div class="listing-body"><div class="listing-city">Houston, TX</div><h3 class="listing-title">River Oaks Manor</h3><p class="listing-address">3737 Chevy Chase Dr, Houston, TX 77019</p><div class="listing-divider"></div><div class="listing-meta"><div class="listing-meta-item"><strong>5</strong>Beds</div><div class="listing-meta-item"><strong>5</strong>Baths</div><div class="listing-meta-item"><strong>6,200</strong>Sq Ft</div></div><div class="listing-footer"><span class="listing-price">$3,200,000</span><button class="listing-btn-sm">View Details</button></div></div>
+    </a>
+
+  </div>
+</div>
+
+<!-- PAGINATION -->
+<div class="pagination">
+  <button class="pag-btn">←</button>
+  <button class="pag-btn active">1</button>
+  <button class="pag-btn">2</button>
+  <button class="pag-btn">3</button>
+  <span class="pag-ellipsis">…</span>
+  <button class="pag-btn">6</button>
+  <button class="pag-btn">→</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div><a href="index.html" class="footer-logo">Luxe<span>.</span>Realty</a><p class="footer-tagline">Connecting discerning buyers with exceptional residential properties across the United States since 2010.</p></div>
+    <div><div class="footer-col-title">Properties</div><ul class="footer-col-links"><li><a href="listings.html">All Listings</a></li><li><a href="listings.html">New York</a></li><li><a href="listings.html">Miami</a></li><li><a href="listings.html">Los Angeles</a></li><li><a href="listings.html">Texas</a></li><li><a href="listings.html">Chicago</a></li></ul></div>
+    <div><div class="footer-col-title">Company</div><ul class="footer-col-links"><li><a href="about.html">About Us</a></li><li><a href="about.html">Our Team</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><div class="footer-col-title">Get In Touch</div><ul class="footer-col-links"><li><a href="#">+1 (800) 589-LUXE</a></li><li><a href="#">hello@luxerealty.com</a></li><li><a href="#">New York Office</a></li><li><a href="#">Miami Office</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span class="footer-copy">© 2024 Luxe Realty Inc. All rights reserved.</span><div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Fair Housing</a></div></div>
+</footer>
+
+<script>
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function a(){cursor.style.left=mx+'px';cursor.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.opacity='.2'});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='.5'});
+});
+const obs=new IntersectionObserver(entries=>entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*60)}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+function setView(v){
+  const g=document.getElementById('listingsGrid');
+  g.classList.toggle('list-view',v==='list');
+  document.getElementById('gridBtn').classList.toggle('active',v==='grid');
+  document.getElementById('listBtn').classList.toggle('active',v==='list');
+}
+function filterListings(){
+  const sel=document.querySelector('.filter-bar select').value;
+  const cards=document.querySelectorAll('.listing-card');
+  let count=0;
+  cards.forEach(c=>{
+    const show=sel==='all'||c.dataset.market===sel;
+    c.style.display=show?'block':'none';
+    if(show)count++;
+  });
+  document.getElementById('resultCount').textContent=count;
+}
+function resetFilters(){
+  document.querySelectorAll('.filter-select').forEach(s=>s.selectedIndex=0);
+  document.querySelectorAll('.listing-card').forEach(c=>c.style.display='block');
+  document.getElementById('resultCount').textContent=9;
+}
+</script>
+</body>
+</html>

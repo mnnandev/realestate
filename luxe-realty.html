@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Luxe Realty — Premium Residential Properties</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F4EF;
+    --white: #FFFFFF;
+    --ink: #141414;
+    --ink-soft: #3A3A3A;
+    --ink-muted: #888880;
+    --gold: #B8964E;
+    --gold-light: #D4AF72;
+    --border: rgba(20,20,20,0.10);
+    --serif: 'Cormorant Garamond', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--ink);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease, background 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--ink);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: transform 0.4s cubic-bezier(.25,.46,.45,.94), opacity 0.2s;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 60px;
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, padding 0.3s;
+  }
+  nav.scrolled { border-color: var(--border); padding: 18px 60px; }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 10px 24px;
+    text-decoration: none;
+    transition: background 0.25s, color 0.25s;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--cream); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 60px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+
+  .hero-desc {
+    font-size: 15px;
+    color: var(--ink-muted);
+    line-height: 1.8;
+    max-width: 380px;
+    margin-bottom: 48px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-btns {
+    display: flex; gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 16px 40px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.25s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold); }
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    padding: 16px 40px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border); cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.25s, color 0.25s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--ink); }
+
+  .hero-stats {
+    display: flex; gap: 48px;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--ink);
+    display: block;
+  }
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.3s forwards;
+  }
+  .hero-img-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #E8E2D9 0%, #D4CEC5 40%, #C5BFB6 100%);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-img-placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b8964e' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-img-label {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: rgba(20,20,20,0.35);
+    letter-spacing: 0.06em;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 48px; left: -24px;
+    background: var(--white);
+    padding: 20px 28px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s forwards;
+  }
+  .badge-num {
+    font-family: var(--serif);
+    font-size: 28px; font-weight: 300;
+    color: var(--gold);
+  }
+  .badge-text { font-size: 11px; color: var(--ink-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* SEARCH */
+  .search-section {
+    padding: 0 60px 80px;
+    margin-top: -1px;
+  }
+  .search-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 40px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 0;
+    align-items: end;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+  }
+  .search-field {
+    padding: 0 32px 0 0;
+    border-right: 1px solid var(--border);
+    margin-right: 32px;
+  }
+  .search-field:last-of-type { border-right: none; }
+  .search-label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .search-select, .search-input {
+    background: none;
+    border: none;
+    outline: none;
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--ink);
+    width: 100%;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .search-select:focus, .search-input:focus { border-color: var(--gold); }
+  .search-btn {
+    background: var(--ink);
+    color: var(--white);
+    border: none;
+    padding: 16px 40px;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s;
+    white-space: nowrap;
+  }
+  .search-btn:hover { background: var(--gold); }
+
+  /* SECTION HEADER */
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 48px;
+  }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 12px;
+    display: block;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .view-all {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+    margin-bottom: 8px;
+  }
+  .view-all:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* LISTINGS */
+  .listings-section { padding: 80px 60px; }
+  .listings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .listing-card {
+    background: var(--white);
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(.25,.46,.45,.94);
+    cursor: none;
+  }
+  .listing-card:hover { transform: translateY(-6px); }
+  .listing-card:hover .listing-img-placeholder { transform: scale(1.04); }
+
+  .listing-img-wrap {
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    position: relative;
+  }
+  .listing-img-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #E5DDD4, #CFC7BC);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
+    position: relative;
+  }
+  .listing-img-placeholder.alt1 { background: linear-gradient(135deg, #D9E0E5, #BFC9D0); }
+  .listing-img-placeholder.alt2 { background: linear-gradient(135deg, #E5E0D9, #D0C9BF); }
+  .listing-img-placeholder.alt3 { background: linear-gradient(135deg, #E0D9E5, #C9BFD0); }
+  .listing-img-placeholder.alt4 { background: linear-gradient(135deg, #D9E5E0, #BFD0C9); }
+  .listing-img-placeholder.alt5 { background: linear-gradient(135deg, #E5E5D9, #D0D0BF); }
+
+  .listing-img-icon {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(20,20,20,0.25);
+    letter-spacing: 0.05em;
+  }
+
+  .listing-tag {
+    position: absolute; top: 16px; left: 16px;
+    background: var(--white);
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 5px 12px; color: var(--ink);
+    font-weight: 500;
+  }
+  .listing-tag.sold { background: var(--ink); color: var(--white); }
+  .listing-tag.new { background: var(--gold); color: var(--white); }
+
+  .listing-body { padding: 24px 28px 28px; }
+  .listing-city {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px; font-weight: 500;
+  }
+  .listing-title {
+    font-family: var(--serif);
+    font-size: 22px; font-weight: 400; line-height: 1.2;
+    margin-bottom: 8px; color: var(--ink);
+  }
+  .listing-address { font-size: 13px; color: var(--ink-muted); margin-bottom: 20px; }
+  .listing-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+  .listing-meta { display: flex; gap: 20px; }
+  .listing-meta-item { font-size: 12px; color: var(--ink-muted); }
+  .listing-meta-item strong { color: var(--ink); font-weight: 500; display: block; font-size: 13px; }
+  .listing-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .listing-price {
+    font-family: var(--serif);
+    font-size: 26px; font-weight: 300; color: var(--ink);
+  }
+  .listing-btn {
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink); border: 1px solid var(--border);
+    padding: 8px 18px; cursor: pointer; background: none;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .listing-btn:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+  /* MARKETS STRIP */
+  .markets-strip {
+    padding: 24px 60px;
+    background: var(--ink);
+    display: flex; align-items: center; gap: 0;
+    overflow: hidden;
+  }
+  .market-item {
+    font-family: var(--serif);
+    font-size: 15px; font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    padding: 0 40px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+    transition: color 0.2s;
+  }
+  .market-item:last-child { border-right: none; }
+  .market-item:hover { color: var(--gold-light); }
+  .market-dot { color: var(--gold); margin-right: 8px; }
+
+  /* ABOUT */
+  .about-section {
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-img-wrap {
+    position: relative;
+  }
+  .about-img-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #E0D9D0, #C8C0B5);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .about-accent-box {
+    position: absolute;
+    bottom: -24px; right: -24px;
+    width: 180px; height: 180px;
+    background: var(--gold);
+    opacity: 0.15;
+    z-index: -1;
+  }
+  .about-experience-badge {
+    position: absolute;
+    bottom: 32px; left: -32px;
+    background: var(--ink);
+    color: var(--white);
+    padding: 24px 32px;
+  }
+  .exp-num {
+    font-family: var(--serif);
+    font-size: 42px; font-weight: 300;
+    color: var(--gold-light);
+    display: block; line-height: 1;
+  }
+  .exp-text { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; margin-top: 6px; display: block; }
+
+  .about-content {}
+  .about-name {
+    font-family: var(--serif);
+    font-size: 14px; letter-spacing: 0.06em;
+    color: var(--ink-muted); margin-top: 24px;
+    font-style: italic;
+  }
+  .about-body {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.9;
+    font-weight: 300; margin: 24px 0 36px;
+  }
+  .about-credentials { display: flex; flex-direction: column; gap: 14px; }
+  .credential {
+    display: flex; align-items: flex-start; gap: 16px;
+  }
+  .cred-dot {
+    width: 4px; height: 4px; background: var(--gold);
+    border-radius: 50%; margin-top: 7px; flex-shrink: 0;
+  }
+  .cred-text { font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+  .cred-text strong { color: var(--ink); font-weight: 500; display: block; }
+
+  /* TEAM */
+  .team-section { padding: 80px 60px; background: var(--white); }
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 48px; }
+  .team-card {
+    background: var(--cream);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  .team-card:hover { transform: translateY(-4px); }
+  .team-img {
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #E5E0D9, #D0C8BC);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .team-img.t2 { background: linear-gradient(160deg, #D9E0E5, #BFC8D0); }
+  .team-img.t3 { background: linear-gradient(160deg, #E5D9E0, #D0BCС8); }
+  .team-img.t4 { background: linear-gradient(160deg, #E0E5D9, #C8D0BC); }
+  .team-img-icon { font-family: var(--serif); font-style: italic; font-size: 12px; color: rgba(20,20,20,0.2); }
+  .team-info { padding: 20px 24px 24px; }
+  .team-name { font-family: var(--serif); font-size: 20px; font-weight: 400; margin-bottom: 4px; }
+  .team-role { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+  .team-market { font-size: 12px; color: var(--ink-muted); margin-top: 8px; }
+
+  /* CONTACT */
+  .contact-section {
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    background: var(--ink);
+    color: var(--white);
+  }
+  .contact-left {}
+  .contact-left .section-eyebrow { color: var(--gold-light); }
+  .contact-left .section-title { color: var(--white); }
+  .contact-desc { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.9; font-weight: 300; margin: 24px 0 48px; }
+  .contact-info { display: flex; flex-direction: column; gap: 20px; }
+  .contact-item { display: flex; align-items: flex-start; gap: 16px; }
+  .ci-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 500; display: block; margin-bottom: 4px; }
+  .ci-value { font-size: 14px; color: rgba(255,255,255,0.7); }
+
+  .contact-form {}
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 500; }
+  .form-input, .form-select, .form-textarea {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--white);
+    padding: 14px 18px;
+    font-family: var(--sans);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.08);
+  }
+  .form-select option { background: var(--ink); }
+  .form-textarea { resize: none; min-height: 120px; }
+  .form-submit {
+    background: var(--gold);
+    color: var(--ink);
+    border: none;
+    padding: 18px 48px;
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.25s;
+    margin-top: 8px;
+  }
+  .form-submit:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: #0E0E0E;
+    color: rgba(255,255,255,0.4);
+    padding: 48px 60px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  footer .nav-logo { color: rgba(255,255,255,0.7); }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-copy { font-size: 11px; }
+
+  /* HOW IT WORKS */
+  .process-section { padding: 100px 60px; background: var(--white); }
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 64px;
+    border: 1px solid var(--border);
+  }
+  .process-step {
+    padding: 44px 36px;
+    border-right: 1px solid var(--border);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .process-step:last-child { border-right: none; }
+  .process-step:hover { background: var(--cream); }
+  .step-number {
+    font-family: var(--serif);
+    font-size: 64px; font-weight: 300;
+    color: rgba(184,150,78,0.15);
+    line-height: 1;
+    margin-bottom: 20px;
+    display: block;
+    transition: color 0.3s;
+  }
+  .process-step:hover .step-number { color: rgba(184,150,78,0.35); }
+  .step-icon {
+    width: 44px; height: 44px;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  .step-title {
+    font-family: var(--serif);
+    font-size: 22px; font-weight: 400;
+    margin-bottom: 12px; color: var(--ink);
+  }
+  .step-desc { font-size: 13px; color: var(--ink-muted); line-height: 1.8; font-weight: 300; }
+  .step-arrow {
+    position: absolute; top: 44px; right: -13px;
+    width: 24px; height: 24px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--gold);
+    z-index: 2;
+  }
+  .process-step:last-child .step-arrow { display: none; }
+
+  /* MARKET INSIGHTS */
+  .insights-section { padding: 100px 60px; background: var(--ink); }
+  .insights-section .section-eyebrow { color: var(--gold-light); }
+  .insights-section .section-title { color: var(--white); }
+  .insights-tabs {
+    display: flex; gap: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin: 48px 0 0;
+  }
+  .insights-tab {
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    padding: 14px 28px; cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    background: none; border-top: none; border-left: none; border-right: none;
+    font-family: var(--sans);
+  }
+  .insights-tab.active, .insights-tab:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .insights-panels { margin-top: 0; }
+  .insights-panel { display: none; }
+  .insights-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 2px; }
+  .insight-stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 36px 40px;
+    transition: background 0.3s;
+  }
+  .insight-stat-card:hover { background: rgba(255,255,255,0.07); }
+  .isc-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 12px; display: block; }
+  .isc-value {
+    font-family: var(--serif);
+    font-size: 42px; font-weight: 300; color: var(--white);
+    line-height: 1;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .isc-change { font-size: 12px; font-weight: 500; }
+  .isc-change.up { color: #6fcf97; }
+  .isc-change.down { color: #eb5757; }
+  .isc-bar-wrap { height: 3px; background: rgba(255,255,255,0.08); margin-top: 16px; border-radius: 2px; overflow: hidden; }
+  .isc-bar { height: 100%; background: var(--gold); border-radius: 2px; transition: width 1s ease; width: 0; }
+  .insight-stat-card.visible .isc-bar { width: var(--bar-w, 60%); }
+  .insights-footer-note { margin-top: 32px; font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; }
+
+  /* TESTIMONIALS */
+  .testimonials-section { padding: 100px 60px; position: relative; overflow: hidden; }
+  .testimonials-section::before {
+    content: '"';
+    font-family: var(--serif);
+    font-size: 400px;
+    color: rgba(184,150,78,0.06);
+    position: absolute; top: -60px; right: 60px;
+    line-height: 1;
+    pointer-events: none;
+    font-style: italic;
+  }
+  .testimonials-track-wrap { overflow: hidden; margin-top: 64px; }
+  .testimonials-track {
+    display: flex;
+    gap: 2px;
+    transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
+  }
+  .testimonial-card {
+    background: var(--white);
+    flex: 0 0 calc(33.333% - 2px);
+    padding: 44px 40px;
+    border: 1px solid var(--border);
+    position: relative;
+    min-width: 0;
+  }
+  .tc-stars { display: flex; gap: 4px; margin-bottom: 24px; }
+  .tc-star { color: var(--gold); font-size: 14px; }
+  .tc-quote {
+    font-family: var(--serif);
+    font-size: 19px; font-weight: 300;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+  .tc-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+  .tc-author { display: flex; align-items: center; gap: 16px; }
+  .tc-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E5DDD4, #CFC7BC);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-family: var(--serif);
+    color: rgba(20,20,20,0.3);
+    flex-shrink: 0;
+  }
+  .tc-name { font-size: 14px; font-weight: 500; color: var(--ink); display: block; margin-bottom: 2px; }
+  .tc-detail { font-size: 12px; color: var(--ink-muted); }
+  .tc-market-tag {
+    position: absolute; top: 32px; right: 32px;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gold); background: rgba(184,150,78,0.08);
+    padding: 4px 10px;
+  }
+  .testimonials-controls {
+    display: flex; align-items: center; gap: 16px;
+    margin-top: 40px;
+  }
+  .tc-btn {
+    width: 44px; height: 44px;
+    border: 1px solid var(--border);
+    background: none; cursor: pointer;
+    font-size: 16px; color: var(--ink);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tc-btn:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .tc-dots { display: flex; gap: 8px; }
+  .tc-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .tc-dot.active { background: var(--gold); border-color: var(--gold); transform: scale(1.3); }
+  .tc-count { margin-left: auto; font-size: 13px; color: var(--ink-muted); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    nav { padding: 20px 32px; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { min-height: 50vw; }
+    .hero-left { padding: 60px 32px; }
+    .search-section { padding: 0 32px 60px; }
+    .search-card { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .search-field { border-right: none; margin-right: 0; }
+    .listings-section, .about-section, .team-section, .contact-section { padding: 60px 32px; }
+    .listings-grid { grid-template-columns: 1fr 1fr; }
+    .about-section { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .contact-section { grid-template-columns: 1fr; }
+    .markets-strip { padding: 24px 32px; flex-wrap: wrap; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 32px 24px; }
+    .nav-links { display: none; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .process-step { border-bottom: 1px solid var(--border); }
+    .insights-panel.active { grid-template-columns: 1fr; }
+    .testimonials-section { padding: 60px 32px; }
+    .testimonial-card { flex: 0 0 calc(100% - 2px); }
+    .testimonials-section::before { font-size: 200px; right: 20px; }
+    .process-section, .insights-section { padding: 60px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Luxe<span>.</span>Realty</a>
+  <ul class="nav-links">
+    <li><a href="#listings">Properties</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Started</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-eyebrow">Premium Residential Properties</span>
+    <h1 class="hero-title">Find Your<br /><em>Perfect</em><br />Home</h1>
+    <p class="hero-desc">We connect discerning buyers with exceptional residential properties across the United States — from Manhattan penthouses to coastal retreats.</p>
+    <div class="hero-btns">
+      <a href="#listings" class="btn-primary">Browse Listings</a>
+      <a href="#contact" class="btn-outline">Book a Call</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">1,200+</span>
+        <span class="stat-label">Properties Sold</span>
+      </div>
+      <div>
+        <span class="stat-num">14</span>
+        <span class="stat-label">Years Active</span>
+      </div>
+      <div>
+        <span class="stat-num">5</span>
+        <span class="stat-label">Major Markets</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-placeholder">
+      <span class="hero-img-label">Featured Property Image</span>
+    </div>
+    <div class="hero-badge">
+      <span class="badge-num">$2.4M</span>
+      <span class="badge-text">Avg. Sale Price · 2024</span>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section class="search-section" id="search">
+  <div class="search-card">
+    <div class="search-field">
+      <label class="search-label">City / Market</label>
+      <select class="search-select">
+        <option>All Markets</option>
+        <option>New York, NY</option>
+        <option>Miami, FL</option>
+        <option>Los Angeles, CA</option>
+        <option>Austin, TX</option>
+        <option>Houston, TX</option>
+        <option>Chicago, IL</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label class="search-label">Property Type</label>
+      <select class="search-select">
+        <option>Any Type</option>
+        <option>Single Family Home</option>
+        <option>Condominium</option>
+        <option>Townhouse</option>
+        <option>Multi-Family</option>
+        <option>Penthouse</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label class="search-label">Price Range</label>
+      <select class="search-select">
+        <option>Any Price</option>
+        <option>$500K – $1M</option>
+        <option>$1M – $2.5M</option>
+        <option>$2.5M – $5M</option>
+        <option>$5M+</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label class="search-label">Bedrooms</label>
+      <select class="search-select">
+        <option>Any</option>
+        <option>1+ Bed</option>
+        <option>2+ Beds</option>
+        <option>3+ Beds</option>
+        <option>4+ Beds</option>
+      </select>
+    </div>
+    <button class="search-btn">Search →</button>
+  </div>
+</section>
+
+<!-- LISTINGS -->
+<section class="listings-section" id="listings">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-eyebrow">Featured Properties</span>
+      <h2 class="section-title">Curated <em>Listings</em></h2>
+    </div>
+    <a href="#" class="view-all">View All Properties</a>
+  </div>
+
+  <div class="listings-grid">
+
+    <!-- Card 1 -->
+    <div class="listing-card reveal">
+      <div class="listing-img-wrap">
+        <div class="listing-img-placeholder">
+          <span class="listing-img-icon">Property Photo</span>
+        </div>
+        <span class="listing-tag new">New</span>
+      </div>
+      <div class="listing-body">
+        <div class="listing-city">New York, NY</div>
+        <h3 class="listing-title">Tribeca Loft Residence</h3>
+        <p class="listing-address">145 Hudson St, New York, NY 10013</p>
+        <div class="listing-divider"></div>
+        <div class="listing-meta">
+          <div class="listing-meta-item"><strong>4</strong>Beds</div>
+          <div class="listing-meta-item"><strong>3</strong>Baths</div>
+          <div class="listing-meta-item"><strong>3,200</strong>Sq Ft</div>
+        </div>
+        <div class="listing-footer">
+          <span class="listing-price">$4,750,000</span>
+          <button class="listing-btn">Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="listing-card reveal">
+      <div class="listing-img-wrap">
+        <div class="listing-img-placeholder alt1">
+          <span class="listing-img-icon">Property Photo</span>
+        </div>
+        <span class="listing-tag">For Sale</span>
+      </div>
+      <div class="listing-body">
+        <div class="listing-city">Miami, FL</div>
+        <h3 class="listing-title">Coconut Grove Waterfront</h3>
+        <p class="listing-address">3180 S Bayshore Dr, Miami, FL 33133</p>
+        <div class="listing-divider"></div>
+        <div class="listing-meta">
+          <div class="listing-meta-item"><strong>5</strong>Beds</div>
+          <div class="listing-meta-item"><strong>4</strong>Baths</div>
+          <div class="listing-meta-item"><strong>5,100</strong>Sq Ft</div>
+        </div>
+        <div class="listing-footer">
+          <span class="listing-price">$6,200,000</span>
+          <button class="listing-btn">Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="listing-card reveal">
+      <div class="listing-img-wrap">
+        <div class="listing-img-placeholder alt2">
+          <span class="listing-img-icon">Property Photo</span>
+        </div>
+        <span class="listing-tag">For Sale</span>
+      </div>
+      <div class="listing-body">
+        <div class="listing-city">Los Angeles, CA</div>
+        <h3 class="listing-title">Hollywood Hills Modern</h3>
+        <p class="listing-address">8420 Sunset Blvd, Los Angeles, CA 90069</p>
+        <div class="listing-divider"></div>
+        <div class="listing-meta">
+          <div class="listing-meta-item"><strong>3</strong>Beds</div>
+          <div class="listing-meta-item"><strong>3</strong>Baths</div>
+          <div class="listing-meta-item"><strong>2,800</strong>Sq Ft</div>
+        </div>
+        <div class="listing-footer">
+          <span class="listing-price">$3,850,000</span>
+          <button class="listing-btn">Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="listing-card reveal">
+      <div class="listing-img-wrap">
+        <div class="listing-img-placeholder alt3">
+          <span class="listing-img-icon">Property Photo</span>
+        </div>
+        <span class="listing-tag new">New</span>
+      </div>
+      <div class="listing-body">
+        <div class="listing-city">Austin, TX</div>
+        <h3 class="listing-title">Barton Hills Estate</h3>
+        <p class="listing-address">2201 Barton Creek Blvd, Austin, TX 78735</p>
+        <div class="listing-divider"></div>
+        <div class="listing-meta">
+          <div class="listing-meta-item"><strong>4</strong>Beds</div>
+          <div class="listing-meta-item"><strong>4</strong>Baths</div>
+          <div class="listing-meta-item"><strong>4,400</strong>Sq Ft</div>
+        </div>
+        <div class="listing-footer">
+          <span class="listing-price">$2,100,000</span>
+          <button class="listing-btn">Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="listing-card reveal">
+      <div class="listing-img-wrap">
+        <div class="listing-img-placeholder alt4">
+          <span class="listing-img-icon">Property Photo</span>
+        </div>
+        <span class="listing-tag">For Sale</span>
+      </div>
+      <div class="listing-body">
+        <div class="listing-city">Chicago, IL</div>
+        <h3 class="listing-title">Lincoln Park Brownstone</h3>
+        <p class="listing-address">2320 N Clark St, Chicago, IL 60614</p>
+        <div class="listing-divider"></div>
+        <div class="listing-meta">
+          <div class="listing-meta-item"><strong>3</strong>Beds</div>
+          <div class="listing-meta-item"><strong>2</strong>Baths</div>
+          <div class="listing-meta-item"><strong>2,600</strong>Sq Ft</div>
+        </div>
+        <div class="listing-footer">
+          <span class="listing-price">$1,475,000</span>
+          <button class="listing-btn">Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="listing-card reveal">
+      <div class="listing-img-wrap">
+        <div class="listing-img-placeholder alt5">
+          <span class="listing-img-icon">Property Photo</span>
+        </div>
+        <span class="listing-tag sold">Sold</span>
+      </div>
+      <div class="listing-body">
+        <div class="listing-city">Miami, FL</div>
+        <h3 class="listing-title">Brickell Sky Penthouse</h3>
+        <p class="listing-address">1000 Brickell Ave, Miami, FL 33131</p>
+        <div class="listing-divider"></div>
+        <div class="listing-meta">
+          <div class="listing-meta-item"><strong>4</strong>Beds</div>
+          <div class="listing-meta-item"><strong>5</strong>Baths</div>
+          <div class="listing-meta-item"><strong>4,800</strong>Sq Ft</div>
+        </div>
+        <div class="listing-footer">
+          <span class="listing-price">$8,900,000</span>
+          <button class="listing-btn">Details</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MARKETS STRIP -->
+<div class="markets-strip">
+  <div class="market-item"><span class="market-dot">●</span>New York, NY</div>
+  <div class="market-item"><span class="market-dot">●</span>Miami, FL</div>
+  <div class="market-item"><span class="market-dot">●</span>Los Angeles, CA</div>
+  <div class="market-item"><span class="market-dot">●</span>Austin, TX</div>
+  <div class="market-item"><span class="market-dot">●</span>Houston, TX</div>
+  <div class="market-item"><span class="market-dot">●</span>Chicago, IL</div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-img-wrap reveal">
+    <div class="about-img-placeholder">
+      <span class="hero-img-label">Agent Photo</span>
+      <div class="about-accent-box"></div>
+    </div>
+    <div class="about-experience-badge">
+      <span class="exp-num">14+</span>
+      <span class="exp-text">Years of Excellence</span>
+    </div>
+  </div>
+  <div class="about-content reveal">
+    <span class="section-eyebrow">About Us</span>
+    <h2 class="section-title">A Different Kind of <em>Agency</em></h2>
+    <p class="about-name">— Alexandra Monroe, Principal Broker</p>
+    <p class="about-body">At Luxe Realty, we don't just sell homes — we match people with places that transform their lives. With over 14 years in the US residential market, our team brings an unparalleled depth of local knowledge to every transaction.</p>
+    <p class="about-body" style="margin-top: -16px;">We operate across New York, Miami, Los Angeles, Texas, and Chicago — always with the same commitment: white-glove service, total transparency, and results that exceed expectations.</p>
+    <div class="about-credentials">
+      <div class="credential">
+        <div class="cred-dot"></div>
+        <div class="cred-text"><strong>Top 1% Nationally Ranked</strong>Ranked in the top 1% of US residential agents by transaction volume, 2019–2024.</div>
+      </div>
+      <div class="credential">
+        <div class="cred-dot"></div>
+        <div class="cred-text"><strong>Licensed in 5 States</strong>NY, FL, CA, TX, IL — seamlessly guiding clients across state lines.</div>
+      </div>
+      <div class="credential">
+        <div class="cred-dot"></div>
+        <div class="cred-text"><strong>Certified Luxury Home Marketing Specialist</strong>CLHMS designation from the Institute for Luxury Home Marketing.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section" id="team">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-eyebrow">Our Specialists</span>
+      <h2 class="section-title">Meet the <em>Team</em></h2>
+    </div>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-img"><span class="team-img-icon">Agent Photo</span></div>
+      <div class="team-info">
+        <div class="team-name">Alexandra Monroe</div>
+        <div class="team-role">Principal Broker</div>
+        <div class="team-market">New York · Miami</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-img t2"><span class="team-img-icon">Agent Photo</span></div>
+      <div class="team-info">
+        <div class="team-name">James Harlow</div>
+        <div class="team-role">Senior Realtor</div>
+        <div class="team-market">Los Angeles · Texas</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-img t3"><span class="team-img-icon">Agent Photo</span></div>
+      <div class="team-info">
+        <div class="team-name">Sofia Reyes</div>
+        <div class="team-role">Buyer's Specialist</div>
+        <div class="team-market">Miami · Chicago</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-img t4"><span class="team-img-icon">Agent Photo</span></div>
+      <div class="team-info">
+        <div class="team-name">Marcus Webb</div>
+        <div class="team-role">Investment Advisor</div>
+        <div class="team-market">New York · Chicago</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="process-section" id="process">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-eyebrow">Our Approach</span>
+      <h2 class="section-title">How It <em>Works</em></h2>
+    </div>
+  </div>
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <span class="step-number">01</span>
+      <div class="step-icon">🔍</div>
+      <h3 class="step-title">Discovery Call</h3>
+      <p class="step-desc">We start with a private consultation to understand your goals, lifestyle, preferred markets, and budget — no pressure, just clarity.</p>
+      <div class="step-arrow">→</div>
+    </div>
+    <div class="process-step reveal">
+      <span class="step-number">02</span>
+      <div class="step-icon">🏘</div>
+      <h3 class="step-title">Curated Selection</h3>
+      <p class="step-desc">Our specialists handpick properties that match your criteria — including off-market listings not available to the general public.</p>
+      <div class="step-arrow">→</div>
+    </div>
+    <div class="process-step reveal">
+      <span class="step-number">03</span>
+      <div class="step-icon">🤝</div>
+      <h3 class="step-title">Negotiation & Offer</h3>
+      <p class="step-desc">We negotiate fiercely on your behalf using deep local market data to secure the best terms and price — every time.</p>
+      <div class="step-arrow">→</div>
+    </div>
+    <div class="process-step reveal">
+      <span class="step-number">04</span>
+      <div class="step-icon">🔑</div>
+      <h3 class="step-title">Seamless Closing</h3>
+      <p class="step-desc">From inspection to signing, we manage every detail so you can focus on the excitement of your new home rather than the paperwork.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET INSIGHTS -->
+<section class="insights-section" id="insights">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-eyebrow">Live Market Data</span>
+      <h2 class="section-title">Market <em>Insights</em></h2>
+    </div>
+  </div>
+  <div class="insights-tabs reveal">
+    <button class="insights-tab active" onclick="switchTab('ny', this)">New York</button>
+    <button class="insights-tab" onclick="switchTab('miami', this)">Miami</button>
+    <button class="insights-tab" onclick="switchTab('la', this)">Los Angeles</button>
+    <button class="insights-tab" onclick="switchTab('tx', this)">Texas</button>
+    <button class="insights-tab" onclick="switchTab('chi', this)">Chicago</button>
+  </div>
+  <div class="insights-panels">
+    <div class="insights-panel active" id="panel-ny">
+      <div class="insight-stat-card reveal" style="--bar-w:78%">
+        <span class="isc-label">Median Sale Price</span>
+        <span class="isc-value">$1,285,000</span>
+        <span class="isc-change up">↑ 6.2% YoY</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:55%">
+        <span class="isc-label">Avg. Days on Market</span>
+        <span class="isc-value">28 days</span>
+        <span class="isc-change down">↓ 4 days vs last quarter</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:88%">
+        <span class="isc-label">Sale-to-List Price Ratio</span>
+        <span class="isc-value">102.4%</span>
+        <span class="isc-change up">↑ Sellers' market</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:42%">
+        <span class="isc-label">Active Listings</span>
+        <span class="isc-value">4,812</span>
+        <span class="isc-change down">↓ 12% vs last year</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+    </div>
+    <div class="insights-panel" id="panel-miami">
+      <div class="insight-stat-card reveal" style="--bar-w:85%">
+        <span class="isc-label">Median Sale Price</span>
+        <span class="isc-value">$680,000</span>
+        <span class="isc-change up">↑ 9.1% YoY</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:48%">
+        <span class="isc-label">Avg. Days on Market</span>
+        <span class="isc-value">34 days</span>
+        <span class="isc-change up">↑ Steady demand</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:76%">
+        <span class="isc-label">Sale-to-List Price Ratio</span>
+        <span class="isc-value">99.8%</span>
+        <span class="isc-change up">↑ Near asking</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:61%">
+        <span class="isc-label">Active Listings</span>
+        <span class="isc-value">6,240</span>
+        <span class="isc-change up">↑ 8% vs last year</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+    </div>
+    <div class="insights-panel" id="panel-la">
+      <div class="insight-stat-card reveal" style="--bar-w:92%">
+        <span class="isc-label">Median Sale Price</span>
+        <span class="isc-value">$920,000</span>
+        <span class="isc-change up">↑ 4.8% YoY</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:38%">
+        <span class="isc-label">Avg. Days on Market</span>
+        <span class="isc-value">22 days</span>
+        <span class="isc-change down">↓ Fast-moving</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:95%">
+        <span class="isc-label">Sale-to-List Price Ratio</span>
+        <span class="isc-value">104.1%</span>
+        <span class="isc-change up">↑ Hot sellers' market</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:35%">
+        <span class="isc-label">Active Listings</span>
+        <span class="isc-value">3,190</span>
+        <span class="isc-change down">↓ 18% vs last year</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+    </div>
+    <div class="insights-panel" id="panel-tx">
+      <div class="insight-stat-card reveal" style="--bar-w:64%">
+        <span class="isc-label">Median Sale Price</span>
+        <span class="isc-value">$435,000</span>
+        <span class="isc-change up">↑ 7.3% YoY</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:52%">
+        <span class="isc-label">Avg. Days on Market</span>
+        <span class="isc-value">31 days</span>
+        <span class="isc-change up">↑ Balanced market</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:70%">
+        <span class="isc-label">Sale-to-List Price Ratio</span>
+        <span class="isc-value">98.6%</span>
+        <span class="isc-change up">↑ Slight negotiation room</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:75%">
+        <span class="isc-label">Active Listings</span>
+        <span class="isc-value">9,870</span>
+        <span class="isc-change up">↑ Growing inventory</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+    </div>
+    <div class="insights-panel" id="panel-chi">
+      <div class="insight-stat-card reveal" style="--bar-w:58%">
+        <span class="isc-label">Median Sale Price</span>
+        <span class="isc-value">$340,000</span>
+        <span class="isc-change up">↑ 5.5% YoY</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:45%">
+        <span class="isc-label">Avg. Days on Market</span>
+        <span class="isc-value">26 days</span>
+        <span class="isc-change down">↓ 3 days vs last quarter</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:82%">
+        <span class="isc-label">Sale-to-List Price Ratio</span>
+        <span class="isc-value">101.2%</span>
+        <span class="isc-change up">↑ Competitive</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+      <div class="insight-stat-card reveal" style="--bar-w:50%">
+        <span class="isc-label">Active Listings</span>
+        <span class="isc-value">5,440</span>
+        <span class="isc-change down">↓ 9% vs last year</span>
+        <div class="isc-bar-wrap"><div class="isc-bar"></div></div>
+      </div>
+    </div>
+  </div>
+  <p class="insights-footer-note">* Data representative of Q4 2024. Figures are illustrative for demo purposes.</p>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="section-header reveal">
+    <div>
+      <span class="section-eyebrow">Client Stories</span>
+      <h2 class="section-title">What Our <em>Clients</em> Say</h2>
+    </div>
+    <div class="testimonials-controls">
+      <button class="tc-btn" id="tcPrev">←</button>
+      <div class="tc-dots" id="tcDots"></div>
+      <button class="tc-btn" id="tcNext">→</button>
+      <span class="tc-count" id="tcCount">1 / 5</span>
+    </div>
+  </div>
+  <div class="testimonials-track-wrap">
+    <div class="testimonials-track reveal" id="tcTrack">
+
+      <!-- Testimonial 1 -->
+      <div class="testimonial-card">
+        <span class="tc-market-tag">New York</span>
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-quote">"Working with Luxe Realty was unlike anything I'd experienced before. Alexandra understood exactly what we wanted and found us a Tribeca loft before it ever hit the public market. The whole process felt effortless."</p>
+        <div class="tc-divider"></div>
+        <div class="tc-author">
+          <div class="tc-avatar">D</div>
+          <div>
+            <span class="tc-name">David & Rachel Stern</span>
+            <span class="tc-detail">Purchased in Tribeca, NY · 2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="testimonial-card">
+        <span class="tc-market-tag">Miami</span>
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-quote">"James guided us through buying our first waterfront property in Miami with patience and deep expertise. He negotiated $180K below asking and we closed in under 30 days. Exceptional service from start to finish."</p>
+        <div class="tc-divider"></div>
+        <div class="tc-author">
+          <div class="tc-avatar" style="background:linear-gradient(135deg,#D9E0E5,#BFC9D0)">M</div>
+          <div>
+            <span class="tc-name">Michael Torres</span>
+            <span class="tc-detail">Purchased in Coconut Grove, FL · 2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="testimonial-card">
+        <span class="tc-market-tag">Los Angeles</span>
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-quote">"I relocated from London and knew nothing about the LA market. Sofia held my hand through everything — from neighborhood research to escrow. She's not just an agent, she's a true advocate for her clients."</p>
+        <div class="tc-divider"></div>
+        <div class="tc-author">
+          <div class="tc-avatar" style="background:linear-gradient(135deg,#E5D9E0,#D0BCC8)">P</div>
+          <div>
+            <span class="tc-name">Priya Nair</span>
+            <span class="tc-detail">Purchased in Hollywood Hills, CA · 2023</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 4 -->
+      <div class="testimonial-card">
+        <span class="tc-market-tag">Texas</span>
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-quote">"We were moving our family from Chicago to Austin and the Luxe team made it seamless. Marcus found us an off-market estate that checked every box. The level of detail and personal attention was extraordinary."</p>
+        <div class="tc-divider"></div>
+        <div class="tc-author">
+          <div class="tc-avatar" style="background:linear-gradient(135deg,#D9E5E0,#BFD0C9)">C</div>
+          <div>
+            <span class="tc-name">Chris & Lauren Whitfield</span>
+            <span class="tc-detail">Purchased in Austin, TX · 2024</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 5 -->
+      <div class="testimonial-card">
+        <span class="tc-market-tag">Chicago</span>
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-quote">"Our Lincoln Park brownstone was listed on a Friday and received 8 offers by Sunday. Luxe Realty's marketing strategy and pricing expertise delivered $95K over asking. I wouldn't trust anyone else with a sale like this."</p>
+        <div class="tc-divider"></div>
+        <div class="tc-author">
+          <div class="tc-avatar" style="background:linear-gradient(135deg,#E5E5D9,#D0D0BF)">A</div>
+          <div>
+            <span class="tc-name">Amanda Hughes</span>
+            <span class="tc-detail">Sold in Lincoln Park, IL · 2024</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-left reveal">
+    <span class="section-eyebrow">Get In Touch</span>
+    <h2 class="section-title" style="color:white;">Let's Find Your<br/><em style="color:var(--gold-light)">Dream Home</em></h2>
+    <p class="contact-desc">Whether you're ready to buy, explore your options, or simply want expert advice on a specific market — we're here for every step.</p>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div>
+          <span class="ci-label">Phone</span>
+          <span class="ci-value">+1 (800) 589-LUXE</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div>
+          <span class="ci-label">Email</span>
+          <span class="ci-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e68e838a8a89a68a939e839483878a929fc885898b">[email&#160;protected]</a></span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div>
+          <span class="ci-label">Offices</span>
+          <span class="ci-value">New York · Miami · Los Angeles · Austin · Chicago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form reveal">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-input" placeholder="Jane" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-input" placeholder="Smith" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="jane@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input type="tel" class="form-input" placeholder="+1 (000) 000-0000" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Market of Interest</label>
+        <select class="form-select">
+          <option>Select a city</option>
+          <option>New York, NY</option>
+          <option>Miami, FL</option>
+          <option>Los Angeles, CA</option>
+          <option>Austin, TX</option>
+          <option>Chicago, IL</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Budget Range</label>
+        <select class="form-select">
+          <option>Select range</option>
+          <option>$500K – $1M</option>
+          <option>$1M – $2.5M</option>
+          <option>$2.5M – $5M</option>
+          <option>$5M+</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group full" style="margin-bottom: 24px;">
+      <label class="form-label">Message</label>
+      <textarea class="form-textarea" placeholder="Tell us about your ideal home..."></textarea>
+    </div>
+    <button class="form-submit">Send Inquiry →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="nav-logo" style="color:rgba(255,255,255,0.6)">Luxe<span>.</span>Realty</a>
+  <div class="footer-links">
+    <a href="#">Properties</a>
+    <a href="#">Markets</a>
+    <a href="#">About</a>
+    <a href="#">Privacy</a>
+  </div>
+  <span class="footer-copy">© 2024 Luxe Realty. All rights reserved.</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a, button, .listing-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2.5)'; ring.style.transform = 'translate(-50%,-50%) scale(1.5)'; ring.style.opacity = '0.2'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '0.5'; });
+  });
+
+  // Market insights tabs
+  function switchTab(city, btn) {
+    document.querySelectorAll('.insights-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.insights-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + city).classList.add('active');
+    btn.classList.add('active');
+    // Re-trigger bar animations
+    document.querySelectorAll('#panel-' + city + ' .isc-bar').forEach(b => {
+      b.style.width = '0'; 
+      setTimeout(() => { b.style.width = b.parentElement.parentElement.style.getPropertyValue('--bar-w'); }, 50);
+    });
+  }
+
+  // Animate insight bars when visible
+  const barObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const bar = e.target.querySelector('.isc-bar');
+        if (bar) {
+          const w = e.target.style.getPropertyValue('--bar-w');
+          setTimeout(() => { bar.style.width = w; }, 200);
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.insight-stat-card').forEach(c => barObs.observe(c));
+
+  // Testimonial carousel
+  const track = document.getElementById('tcTrack');
+  const cards = track ? track.querySelectorAll('.testimonial-card') : [];
+  const dotsContainer = document.getElementById('tcDots');
+  const countEl = document.getElementById('tcCount');
+  let tcCurrent = 0;
+  const tcVisible = () => window.innerWidth <= 1024 ? 1 : 3;
+
+  function buildDots() {
+    if (!dotsContainer) return;
+    const pages = Math.ceil(cards.length / tcVisible());
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < pages; i++) {
+      const d = document.createElement('div');
+      d.className = 'tc-dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goTo(i);
+      dotsContainer.appendChild(d);
+    }
+  }
+
+  function goTo(idx) {
+    const pages = Math.ceil(cards.length / tcVisible());
+    tcCurrent = Math.max(0, Math.min(idx, pages - 1));
+    const cardW = cards[0] ? cards[0].offsetWidth + 2 : 0;
+    track.style.transform = `translateX(-${tcCurrent * cardW * tcVisible()}px)`;
+    if (countEl) countEl.textContent = `${tcCurrent + 1} / ${pages}`;
+    document.querySelectorAll('.tc-dot').forEach((d, i) => d.classList.toggle('active', i === tcCurrent));
+  }
+
+  if (document.getElementById('tcPrev')) {
+    document.getElementById('tcPrev').onclick = () => goTo(tcCurrent - 1);
+    document.getElementById('tcNext').onclick = () => goTo(tcCurrent + 1);
+  }
+  buildDots();
+  window.addEventListener('resize', () => { buildDots(); goTo(0); });
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entrie
