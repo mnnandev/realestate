@@ -110,10 +110,14 @@
   .form-grid{grid-template-columns:1fr}
   .faq-section{padding:60px 32px}
   .faq-grid{grid-template-columns:1fr}
-  .map-overlay-card{left:32px}
+  .map-overlay-card{left:32px;right:32px}
+  .map-pins{gap:24px;flex-wrap:wrap;justify-content:center;padding:0 16px}
+  .map-placeholder-text{font-size:16px;text-align:center;padding:0 16px}
 }
 @media(max-width:768px){
   .ch-title{font-size:clamp(32px,7vw,44px)}
+  .map-pins{gap:16px}
+  .pin-label{font-size:9px}
 }
 @media(max-width:480px){
   .contact-header{padding:70px 0 30px}
@@ -132,8 +136,14 @@
   .faq-section{padding:32px 16px}
   .faq-q{font-size:14px}
   .faq-a{font-size:13px}
-  .map-section{height:250px}
-  .map-overlay-card{left:16px;right:16px;padding:16px}
+  .map-section{height:280px}
+  .map-placeholder-text{font-size:14px}
+  .map-pins{gap:12px}
+  .pin-dot{width:8px;height:8px}
+  .pin-label{font-size:8px}
+  .map-overlay-card{left:16px;right:16px;padding:16px;bottom:16px}
+  .moc-title{font-size:14px}
+  .moc-addr{font-size:11px}
 }
 </style>
 </head>
