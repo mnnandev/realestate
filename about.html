@@ -32,8 +32,8 @@ nav{position:fixed;top:0;width:100%;z-index:100;display:flex;align-items:center;
 .ah-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px;display:block;opacity:0;animation:fadeUp .7s .2s forwards}
 .ah-title{font-family:var(--serif);font-size:clamp(44px,5vw,72px);font-weight:300;color:var(--white);line-height:1.1;opacity:0;animation:fadeUp .7s .35s forwards}
 .ah-title em{font-style:italic;color:var(--gold-light)}
-.ah-right{background:linear-gradient(160deg,#E0D9D0,#C8C0B5);display:flex;align-items:center;justify-content:center;position:relative;opacity:0;animation:fadeIn 1s .2s forwards}
-.ah-img-label{font-family:var(--serif);font-style:italic;font-size:18px;color:rgba(20,20,20,.3)}
+.ah-right{background:url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80') center/cover no-repeat;display:flex;align-items:center;justify-content:center;position:relative;opacity:0;animation:fadeIn 1s .2s forwards}
+.ah-img-label{display:none}
 
 /* STORY SECTION */
 .story-section{padding:100px 60px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
@@ -66,13 +66,13 @@ nav{position:fixed;top:0;width:100%;z-index:100;display:flex;align-items:center;
 .team-card:hover{transform:translateY(-6px)}
 .team-card:hover .team-img-inner{transform:scale(1.04)}
 .team-img-wrap{overflow:hidden;aspect-ratio:3/4}
-.team-img-inner{width:100%;height:100%;background:linear-gradient(160deg,#E5E0D9,#D0C8BC);display:flex;align-items:center;justify-content:center;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
-.team-img-inner.t2{background:linear-gradient(160deg,#D9E0E5,#BFC8D0)}
-.team-img-inner.t3{background:linear-gradient(160deg,#E5D9E0,#D0BCC8)}
-.team-img-inner.t4{background:linear-gradient(160deg,#D9E5D9,#BCCEA0)}
-.team-img-inner.t5{background:linear-gradient(160deg,#E5E5D9,#D0D0BC)}
-.team-img-inner.t6{background:linear-gradient(160deg,#D9D9E5,#BCB8D0)}
-.team-img-label{font-family:var(--serif);font-style:italic;font-size:13px;color:rgba(20,20,20,.2)}
+.team-img-inner{width:100%;height:100%;background:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80') center/cover no-repeat;display:flex;align-items:center;justify-content:center;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+.team-img-inner.t2{background:url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80') center/cover no-repeat}
+.team-img-inner.t3{background:url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80') center/cover no-repeat}
+.team-img-inner.t4{background:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80') center/cover no-repeat}
+.team-img-inner.t5{background:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80') center/cover no-repeat}
+.team-img-inner.t6{background:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80') center/cover no-repeat}
+.team-img-label{display:none}
 .team-info{padding:24px 24px 28px}
 .team-name{font-family:var(--serif);font-size:22px;font-weight:400;margin-bottom:4px}
 .team-role{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
@@ -107,6 +107,11 @@ footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
 .footer-logo{font-family:var(--serif);font-size:24px;font-weight:600;color:rgba(255,255,255,.8);text-decoration:none;display:block;margin-bottom:16px}
 .footer-logo span{color:var(--gold)}
 .footer-tagline{font-size:13px;color:rgba(255,255,255,.3);line-height:1.7;max-width:260px}
+.footer-social{display:flex;gap:12px;margin-top:24px}
+.footer-social a{width:40px;height:40px;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none}
+.footer-social a:hover{background:var(--gold);border-color:var(--gold)}
+.footer-social svg{width:18px;height:18px;fill:rgba(255,255,255,.5);transition:fill .3s}
+.footer-social a:hover svg{fill:var(--ink)}
 .footer-col-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
 .footer-col-links{list-style:none;display:flex;flex-direction:column;gap:12px}
 .footer-col-links a{font-size:13px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
@@ -252,7 +257,7 @@ footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
-    <div><a href="index.html" class="footer-logo">Luxe<span>.</span>Realty</a><p class="footer-tagline">Connecting discerning buyers with exceptional residential properties across the United States since 2010.</p></div>
+    <div><a href="index.html" class="footer-logo">Luxe<span>.</span>Realty</a><p class="footer-tagline">Connecting discerning buyers with exceptional residential properties across the United States since 2010.</p><div class="footer-social"><a href="https://facebook.com" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a><a href="https://instagram.com" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a><a href="https://twitter.com" target="_blank" aria-label="X/Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a><a href="https://youtube.com" target="_blank" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a></div></div>
     <div><div class="footer-col-title">Properties</div><ul class="footer-col-links"><li><a href="listings.html">All Listings</a></li><li><a href="listings.html">New York</a></li><li><a href="listings.html">Miami</a></li><li><a href="listings.html">Los Angeles</a></li><li><a href="listings.html">Texas</a></li><li><a href="listings.html">Chicago</a></li></ul></div>
     <div><div class="footer-col-title">Company</div><ul class="footer-col-links"><li><a href="about.html">About Us</a></li><li><a href="about.html#team">Our Team</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     <div><div class="footer-col-title">Get In Touch</div><ul class="footer-col-links"><li><a href="#">+1 (800) 589-LUXE</a></li><li><a href="#">hello@luxerealty.com</a></li></ul></div>
