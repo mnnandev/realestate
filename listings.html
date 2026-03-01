@@ -148,6 +148,7 @@ footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
   .nav-cta{display:none}
   .menu-toggle{display:flex}
   .page-header{padding:110px 32px 48px}
+  .ph-title{font-size:clamp(36px,8vw,52px)}
   .filter-bar{padding:0 32px;top:69px;overflow-x:auto}
   .filter-actions{display:none}
   .results-bar,.listings-body{padding-left:32px;padding-right:32px}
@@ -159,19 +160,46 @@ footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
   .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
   .footer-bottom{flex-direction:column;gap:16px;text-align:center}
 }
-@media(max-width:600px){
-  nav{padding:16px 20px}
-  .page-header{padding:100px 20px 36px}
-  .page-header::after{display:none}
-  .filter-bar{padding:0 20px;top:65px}
-  .filter-group{padding:14px 16px}
-  .results-bar,.listings-body{padding-left:20px;padding-right:20px}
-  .results-bar{flex-direction:column;gap:16px;align-items:flex-start}
+@media(max-width:768px){
+  .ph-title{font-size:clamp(32px,7vw,44px)}
   .listings-grid{grid-template-columns:1fr}
-  .pagination{padding:32px 20px 48px}
-  footer{padding:40px 20px 20px}
-  .footer-grid{grid-template-columns:1fr;text-align:center}
+}
+@media(max-width:480px){
+  nav{padding:14px 16px}
+  .nav-logo{font-size:18px}
+  .menu-toggle{width:40px;height:40px}
+  .mobile-menu a{font-size:24px}
+  .page-header{padding:70px 16px 30px}
+  .page-header::after{display:none}
+  .ph-eyebrow{font-size:10px}
+  .ph-title{font-size:28px}
+  .ph-meta{flex-direction:column;gap:12px;align-items:flex-start}
+  .ph-divider{display:none}
+  .filter-bar{padding:0 16px;top:60px}
+  .filter-group{padding:12px 12px}
+  .filter-label{font-size:8px}
+  .filter-select{font-size:14px}
+  .results-bar,.listings-body{padding-left:16px;padding-right:16px}
+  .results-bar{flex-direction:column;gap:12px;align-items:flex-start}
+  .results-count{font-size:12px}
+  .listing-card{min-width:100%}
+  .listing-body{padding:16px}
+  .listing-city{font-size:9px}
+  .listing-title{font-size:18px}
+  .listing-price{font-size:18px}
+  .listing-meta{font-size:11px}
+  .pagination{padding:24px 16px 40px}
+  .pag-btn{width:36px;height:36px;font-size:12px}
+  footer{padding:32px 16px 16px}
+  .footer-grid{grid-template-columns:1fr;text-align:center;gap:24px}
+  .footer-logo{font-size:20px}
+  .footer-tagline{font-size:12px}
   .footer-social{justify-content:center}
+  .footer-col-title{font-size:10px}
+  .footer-col-links a{font-size:12px}
+  .footer-bottom{padding-top:20px}
+  .footer-copy{font-size:10px}
+  .footer-legal a{font-size:10px}
 }
 </style>
 </head>

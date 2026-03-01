@@ -818,9 +818,10 @@
     .hero { grid-template-columns: 1fr; min-height: auto; }
     .hero-right { min-height: 50vw; }
     .hero-left { padding: 60px 32px; }
+    .hero-title { font-size: clamp(36px, 8vw, 52px); }
     .search-section { padding: 0 32px 60px; }
     .search-card { grid-template-columns: 1fr 1fr; gap: 24px; }
-    .search-field { border-right: none; margin-right: 0; }
+    .search-field { border-right: none; margin-right: 0; padding-right: 0; }
     .listings-section, .about-section, .team-section, .contact-section { padding: 60px 32px; }
     .listings-grid { grid-template-columns: 1fr 1fr; }
     .about-section { grid-template-columns: 1fr; }
@@ -837,23 +838,57 @@
     .testimonials-section::before { font-size: 200px; right: 20px; }
     .process-section, .insights-section { padding: 60px 32px; }
   }
-  @media (max-width: 600px) {
-    nav { padding: 16px 20px; }
-    .hero-left { padding: 40px 20px; }
-    .hero-btns { flex-direction: column; gap: 12px; }
-    .hero-btns a { text-align: center; }
-    .hero-stats { flex-direction: column; gap: 24px; }
-    .search-section { padding: 0 20px 40px; }
-    .search-card { grid-template-columns: 1fr; padding: 24px 20px; }
-    .listings-section, .about-section, .team-section, .contact-section { padding: 40px 20px; }
+  @media (max-width: 768px) {
+    .hero-title { font-size: clamp(32px, 7vw, 44px); }
+    .hero-desc { font-size: 14px; max-width: 100%; }
+    .search-card { grid-template-columns: 1fr; }
     .listings-grid { grid-template-columns: 1fr; }
     .team-grid { grid-template-columns: 1fr; }
     .process-grid { grid-template-columns: 1fr; }
-    .markets-strip { padding: 16px 20px; }
-    .market-item { padding: 6px 16px; font-size: 13px; }
-    footer { padding: 32px 20px 20px; }
-    .testimonials-section { padding: 40px 20px; }
-    .process-section, .insights-section { padding: 40px 20px; }
+  }
+  @media (max-width: 480px) {
+    nav { padding: 14px 16px; }
+    .nav-logo { font-size: 18px; }
+    .menu-toggle { width: 40px; height: 40px; }
+    .mobile-menu a { font-size: 24px; }
+    .hero { padding-top: 60px; }
+    .hero-left { padding: 30px 16px; }
+    .hero-eyebrow { font-size: 10px; margin-bottom: 16px; }
+    .hero-title { font-size: 28px; margin-bottom: 16px; }
+    .hero-desc { font-size: 13px; margin-bottom: 24px; line-height: 1.6; }
+    .hero-btns { flex-direction: column; gap: 10px; }
+    .hero-btns a { text-align: center; padding: 14px 24px; font-size: 11px; }
+    .hero-stats { flex-direction: column; gap: 20px; margin-top: 32px; padding-top: 24px; }
+    .stat-num { font-size: 28px; }
+    .stat-label { font-size: 10px; }
+    .hero-right { min-height: 40vw; }
+    .search-section { padding: 0 16px 32px; }
+    .search-card { padding: 20px 16px; gap: 16px; }
+    .search-label { font-size: 9px; }
+    .search-select, .search-input { font-size: 16px; }
+    .search-btn { padding: 14px 24px; font-size: 10px; width: 100%; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .section-eyebrow { font-size: 9px; }
+    .section-title { font-size: 28px; }
+    .listings-section, .about-section, .team-section, .contact-section { padding: 32px 16px; }
+    .listing-card { min-width: 100%; }
+    .listing-body { padding: 16px; }
+    .listing-title { font-size: 18px; }
+    .listing-price { font-size: 18px; }
+    .process-section, .insights-section { padding: 32px 16px; }
+    .process-step { padding: 20px 16px; }
+    .step-num { font-size: 32px; }
+    .step-title { font-size: 16px; }
+    .testimonials-section { padding: 32px 16px; }
+    .testimonial-card { padding: 24px 20px; }
+    .tc-text { font-size: 15px; }
+    .markets-strip { padding: 12px 16px; gap: 8px; }
+    .market-item { padding: 6px 12px; font-size: 12px; }
+    footer { padding: 32px 16px 16px; }
+    .footer-links { flex-wrap: wrap; gap: 16px; justify-content: center; }
+    .footer-links a { font-size: 10px; }
+    .footer-social { margin-left: 0; margin-top: 16px; }
+    .footer-copy { font-size: 10px; }
   }
 </style>
 </head>

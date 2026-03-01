@@ -151,6 +151,7 @@ footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
   .nav-cta{display:none}
   .menu-toggle{display:flex}
   .ch-inner{padding:0 32px}
+  .ch-title{font-size:clamp(36px,8vw,52px)}
   .contact-main{grid-template-columns:1fr}
   .contact-info-panel,.contact-form-panel{padding:60px 32px}
   .contact-info-panel{border-right:none;border-bottom:1px solid var(--border)}
@@ -163,15 +164,42 @@ footer{background:#0E0E0E;color:rgba(255,255,255,.4);padding:60px 60px 32px}
   .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
   .footer-bottom{flex-direction:column;gap:16px;text-align:center}
 }
-@media(max-width:600px){
-  nav{padding:16px 20px}
-  .ch-inner{padding:0 20px}
-  .contact-info-panel,.contact-form-panel{padding:40px 20px}
-  .faq-section{padding:40px 20px}
-  .map-overlay-card{left:20px;right:20px}
-  footer{padding:40px 20px 20px}
-  .footer-grid{grid-template-columns:1fr;text-align:center}
+@media(max-width:768px){
+  .ch-title{font-size:clamp(32px,7vw,44px)}
+}
+@media(max-width:480px){
+  nav{padding:14px 16px}
+  .nav-logo{font-size:18px}
+  .menu-toggle{width:40px;height:40px}
+  .mobile-menu a{font-size:24px}
+  .contact-header{padding:70px 0 30px}
+  .ch-inner{padding:0 16px}
+  .ch-eyebrow{font-size:10px}
+  .ch-title{font-size:28px}
+  .ch-desc{font-size:13px}
+  .contact-info-panel,.contact-form-panel{padding:32px 16px}
+  .info-title{font-size:20px}
+  .info-item{font-size:13px}
+  .office-card{padding:16px}
+  .office-name{font-size:14px}
+  .form-label{font-size:9px}
+  .form-input,.form-textarea,.form-select{font-size:14px;padding:10px 0}
+  .form-btn{padding:14px 24px;font-size:10px}
+  .faq-section{padding:32px 16px}
+  .faq-q{font-size:14px}
+  .faq-a{font-size:13px}
+  .map-section{height:250px}
+  .map-overlay-card{left:16px;right:16px;padding:16px}
+  footer{padding:32px 16px 16px}
+  .footer-grid{grid-template-columns:1fr;text-align:center;gap:24px}
+  .footer-logo{font-size:20px}
+  .footer-tagline{font-size:12px}
   .footer-social{justify-content:center}
+  .footer-col-title{font-size:10px}
+  .footer-col-links a{font-size:12px}
+  .footer-bottom{padding-top:20px}
+  .footer-copy{font-size:10px}
+  .footer-legal a{font-size:10px}
 }
 </style>
 </head>
